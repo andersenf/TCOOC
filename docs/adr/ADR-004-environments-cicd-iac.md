@@ -12,13 +12,13 @@
 | **D-04** (part) Repo is **public**, on the **GitHub Free** plan | Decided by the product owner, 2026-11-21 |
 | Budget alert is created **manually** by the product owner in the AWS console (section 7) | Decided by the product owner, 2026-11-21 |
 | **D-04** (rest) repo owner/name | Resolved by the product owner, 2026-11-23: `andersenf/TCOOC` (created 2026-11-23, public) |
-| **D-05 / D-07** Budget email and amount (about 20 USD/month) | Budget alert created by the product owner, 2026-11-23. Exact amount and thresholds to be confirmed against the section 7 table |
+| **D-05 / D-07** Budget email and amount | Budget alert created by the product owner, 2026-11-23: **100 USD/month, alerts at 60% and 80%** (section 7) |
 
 **Supersedes** the CLAUDE.md defaults "region `eu-north-1` or `eu-central-1`" and "`dev` and `prod` stages". CLAUDE.md lets the Architect change the stack through an ADR. The text of CLAUDE.md is updated separately.
 
 ## Context
 - One production environment, deployed from GitHub Actions without long-lived AWS keys in CI or the repo (S0-6). Before v1.0.0, agents may also deploy locally (D-13, section 4).
-- Constraints: EU data residency, under about 20 USD/month at low traffic, simplest managed design, no personal data stored. This ADR doesn't touch the `country` boundary.
+- Constraints: EU data residency, under about 20 USD/month at low traffic (budget alert: 100 USD/month, section 7), simplest managed design, no personal data stored. This ADR doesn't touch the `country` boundary.
 - Region and account layout are hard to change after `cdk bootstrap`. Changing either means redeploying everything.
 - There is no pre-production environment, so the PR checks, branch protection on `main` and the rollback path below are the whole safety net.
 - The repo is public on GitHub Free, so its files, Actions logs and PR comments are readable by anyone.
@@ -145,10 +145,10 @@ Steps 2 to 4 avoid a window in which deploys fail. If the repo ever becomes priv
 | Budget name | `tco-monthly-cost` | This ADR |
 | Budget type | Cost budget | This ADR |
 | Period / renewal | Monthly, recurring, no end date | This ADR |
-| Budgeting method / amount | Fixed, **20 USD** | D-07, open for final confirmation |
+| Budgeting method / amount | Fixed, **100 USD** | Product owner, 2026-11-23 (D-07) |
 | Scope | All AWS services (whole account) | This ADR |
-| Alert 1 | **80%** of budgeted amount, **Actual** cost | Product owner, 2026-11-21 |
-| Alert 2 | **100%** of budgeted amount, **Forecasted** cost | Product owner, 2026-11-21 |
+| Alert 1 | **60%** of budgeted amount (actual or forecasted as set in the console; not stated) | Product owner, 2026-11-23 (D-07) |
+| Alert 2 | **80%** of budgeted amount (actual or forecasted as set in the console; not stated) | Product owner, 2026-11-23 (D-07) |
 | Notification | Email only, to the D-05 address. No SNS, no Chatbot | D-05 pending |
 | Budget actions | None | Budgets without actions are free (https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/, as of 2026-11-21) |
 
@@ -197,4 +197,4 @@ AWS updates budget data up to three times a day, so alerts lag spend (https://do
   - A custom domain needs an ACM certificate in `us-east-1`, which needs a new ADR note.
 
 ## Product owner approval needed?
-Yes, **D-10**: approval of this revised text. D-02, D-03, D-06, public repo on GitHub Free (D-04, part) and the manual budget were decided on 2026-11-21; D-01 (resolved) and D-13 on 2026-11-23. All are reflected above. The rest of D-04 (owner and name) is still pending; D-07 is open for final confirmation. Open TODO-VERIFY items: latency from Denmark, and `cdk diff` with only the lookup role (now a v1.0.0 checklist item).
+Yes, **D-10**: approval of this revised text. D-02, D-03, D-06, public repo on GitHub Free (D-04, part) and the manual budget were decided on 2026-11-21; D-01 (resolved) and D-13 on 2026-11-23. All are reflected above. D-04 (repo `andersenf/TCOOC`), D-10 (approved) and D-07 (100 USD/month, 60% and 80%) were resolved on 2026-11-23. Open TODO-VERIFY items: latency from Denmark, and `cdk diff` with only the lookup role (now a v1.0.0 checklist item).
