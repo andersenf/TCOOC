@@ -3,9 +3,9 @@
 ## Sprint 0 — Foundations
 - **S0-1 (Architect)** Validate data sources → `docs/data-sources.md`, ADR-002
 - **S0-2 (Architect)** ADR-001 stack, ADR-003 calculation engine, ADR-004 environments/CI; OpenAPI v0
-- **S0-3 (Developer)** Scaffold the repo, CDK app (frontend/api/data stacks), CI pipeline, deploy "hello" to `dev`
+- **S0-3 (Developer)** Scaffold the repo, CDK app (frontend/api/data stacks), CI pipeline, deploy "hello" to `prod` on merge to `main`
 - **S0-4 (Tester)** Write 9 oracle cases from `02-tco-model-dk.md`; set up the test harness
-- **S0-6 (Developer + Architect, product owner provides access)** Connect to the AWS account: decide the account setup (single account with `dev`/`prod` stages vs. separate accounts) in ADR-004; set up local access via AWS IAM Identity Center (SSO) or a named CLI profile (no long-lived access keys in the repo); `cdk bootstrap` the chosen EU region; create a GitHub Actions OIDC identity provider and a least-privilege deploy role; set an AWS Budgets alert (about 20 USD/month). Done when `cdk deploy` to `dev` works both locally and from CI. Depends on the product owner supplying the account ID, region choice and an admin login for the one-time bootstrap
+- **S0-6 (Developer + Architect, product owner provides access)** Connect to the AWS account: one account with a `prod` stage only, region `eu-west-1` (ADR-004); read-only local access via AWS IAM Identity Center (SSO) or a named CLI profile that can run `cdk diff` (no local deploys, no long-lived access keys in the repo); one-time `cdk bootstrap` by the product owner's admin login; a GitHub Actions OIDC identity provider with a least-privilege CI deploy role for `prod` and a read-only role for PR diffs; branch protection on `main`; an AWS Budgets alert (about 20 USD/month) created manually by the product owner. Done when CI deploys "hello" to `prod` from `main`. Depends on the product owner supplying the account ID, an admin login for the one-time bootstrap, the repo owner/name and the budget email
 - **S0-5 (PM)** Turn epics E1–E5 into stories; plan Sprint 1
 
 ## Epics

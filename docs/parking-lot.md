@@ -12,5 +12,5 @@ Ideas outside the current scope (`docs/01-product-brief.md`). Not planned. The p
 | Leasing, balloon loans, loan fees | TCO model v0.1 | v1 is fixed-rate annuity only |
 | Time-varying energy prices (forecast or historical trend) | TCO model v0.1 | v1 uses constant prices |
 | Cost alerts by service / anomaly detection beyond the single budget alert | Sprint 0 planning (S0-6) | Only if costs become an issue |
-| Custom domain + TLS certificate for `dev`/`prod` | Sprint 0 planning (S0-3) | Needed before a public launch; decide later |
+| Custom domain + TLS certificate for `prod` | Sprint 0 planning (S0-3) | Needed before a public launch; decide later |
 | More countries, more than two cars | Brief §7 | Country plug-in boundary is designed in ADR-003 |

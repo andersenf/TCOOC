@@ -43,4 +43,4 @@ flowchart LR
 ## Product owner approvals required for
 - The final choice of data sources (licence implications)
 - Any ADR that changes cost, region or stack
-- Each production release
+- Each production release from v1.0.0 onward (before v1.0.0, merges to `main` deploy to `prod` automatically; see ADR-004)
