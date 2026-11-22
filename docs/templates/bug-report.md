@@ -1,6 +1,6 @@
 # BUG-NNN: <short title>
 
-**Story:** STORY-ID · **Severity:** Blocker/Major/Minor · **Env:** dev/prod
+**Story:** STORY-ID · **Severity:** Blocker/Major/Minor · **Env:** prod
 
 ## Steps to reproduce
 1.

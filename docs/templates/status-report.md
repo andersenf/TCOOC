@@ -11,4 +11,4 @@
 
 **Risks:**
 
-**Demo in dev:** what to try, and the URL
+**Demo in prod:** what to try, and the URL
