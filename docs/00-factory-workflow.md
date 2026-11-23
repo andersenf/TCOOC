@@ -41,6 +41,6 @@ flowchart LR
 - Disputed calculation → Tester and Architect check `02-tco-model-dk.md`; if the model itself is wrong, the product owner decides
 
 ## Product owner approvals required for
-- The final choice of data sources (licence implications)
+- The final choice of data sources (license implications)
 - Any ADR that changes cost, region or stack
 - Each production release from v1.0.0 onward (before v1.0.0, merges to `main` deploy to `prod` automatically; see ADR-004)
