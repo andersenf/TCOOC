@@ -4,7 +4,7 @@
 **PM:** Project Manager agent
 
 ## Goal
-Lay the foundations so that Sprint 1 can build features: confirmed data sources, written architecture decisions and API contract, a secure connection to the AWS account, a repo with CI that deploys a "hello" app to `prod`, and oracle cases for the TCO model v0.1.
+Lay the foundations so that Sprint 1 can build features: confirmed data sources, written architecture decisions and API contract, a secure connection to the AWS account, a repo with CI that deploys a "hello" app to `prod`, and oracle cases for the TCO model v0.2.
 
 **Update 2026-11-21:** the product owner decided D-02 (region `eu-west-1`), D-03 (one AWS account, `prod` stage only, no `dev`) and D-06 (prod approval only from v1.0.0; until then merging to main deploys to `prod` automatically and agents may merge). The Architect is revising ADR-004 with these decisions; it awaits product owner approval (D-10). S0-6 and S0-3 Part B now target `prod`.
 
@@ -18,7 +18,7 @@ Two tracks run in parallel. The critical path is **ADR-004 → S0-6 → S0-3 Par
 |---|---|---|---|---|
 | 1 | [S0-2](../docs/stories/S0-2.md) ADR-004 first, then ADR-001, ADR-003, OpenAPI v0 | Architect | D-02, D-03, D-06 (resolved 2026-11-21); D-10 approval of revised ADR-004 | ADR-004 is first because it decides the account/stage layout S0-6 needs. Being revised with the product owner's decisions |
 | 1 | [S0-1](../docs/stories/S0-1.md) Validate data sources, ADR-002 | Architect | — | Parallel with S0-2. Largest risk item (licences, Danish coverage) |
-| 1 | [S0-4](../docs/stories/S0-4.md) Oracle cases (hand-working) | Tester | TCO model v0.1 | Hand-working can start on day 1; harness waits for S0-3 Part A |
+| 1 | [S0-4](../docs/stories/S0-4.md) Oracle cases (hand-working) | Tester | TCO model v0.2 | Hand-working can start on day 1; harness waits for S0-3 Part A |
 | 2 | [S0-3](../docs/stories/S0-3.md) Part A: scaffold, lint, test, synth in CI | Developer | ADR-001, ADR-004 | No AWS access needed |
 | 3 | [S0-6](../docs/stories/S0-6.md) Connect AWS account: read-only SSO/profile (`cdk diff`), one-time `cdk bootstrap` by the product owner, OIDC CI deploy role + read-only PR diff role, branch protection on `main`, budget alert (manual, product owner) | Developer + Architect (product owner: bootstrap and budget) | Approved ADR-004 (D-10), S0-3 Part A, D-01, D-04, D-05, D-07, D-12 | Done when CI deploys "hello" to `prod` (single account, `eu-west-1`) from `main`. No local deploys |
 | 4 | [S0-3](../docs/stories/S0-3.md) Part B: CI deploy step to `prod` on merge to main (no approval gate before v1.0.0; PR checks must pass first) | Developer | S0-6 | Completes S0-3 |
@@ -38,7 +38,7 @@ flowchart LR
   S03A --> S06
   S06 --> S03B[S0-3 Part B: CI deploy to prod on merge]
   S01[S0-1: data sources + ADR-002] --> PO3[PO: approve sources]
-  S04[S0-4: oracle cases] --> PO4[PO: approve TCO model v0.1]
+  S04[S0-4: oracle cases] --> PO4[PO: approve TCO model v0.2]
   PO3 --> S05[S0-5: E1-E5 stories, Sprint 1 plan]
   PO4 --> S05
   ADR1 --> S05
@@ -51,7 +51,7 @@ flowchart LR
 - Most urgent, day 3: AWS account ID + admin login (D-01, coming shortly), GitHub repo owner/name (D-04), budget email (D-05) and thresholds (D-07)
 - Day 2–4: approve revised ADR-004 (D-10)
 - With S0-6: run the one-time admin bootstrap, and create the budget alert in the AWS console following the ADR-004 runbook, then confirm or send a screenshot
-- About day 6: approve data sources (D-08) and TCO model v0.1 (D-09); approve other cost/region/stack ADRs as they arrive (D-10)
+- About day 6: approve data sources (D-08) and TCO model v0.2 (D-09); approve other cost/region/stack ADRs as they arrive (D-10)
 
 ## Demo at the end of Sprint 0
 The product owner can:
@@ -60,7 +60,7 @@ The product owner can:
 3. See that a direct push to `main` is rejected (branch protection), and that a PR shows a read-only `cdk diff`.
 4. Check the AWS budget alert (about 20 USD/month) they created in the AWS console, with their email subscribed.
 5. Read `docs/data-sources.md` and ADR-001 to ADR-004 and approve or comment.
-6. Check one oracle case by hand (e.g. EV vs. petrol) against the year-by-year `C(y)` table and its break-even year.
+6. Check one oracle case by hand (e.g. EV vs. petrol) against the year-by-year `C(y)` table, including the residual value with the km limit.
 7. Review the proposed Sprint 1 plan.
 
 ## Risks
